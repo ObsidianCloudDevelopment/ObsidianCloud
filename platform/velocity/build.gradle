@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly "com.velocitypowered:velocity-api:${velocity_api_version}"
+    annotationProcessor "com.velocitypowered:velocity-api:${velocity_api_version}"
+    implementation project(':common')
+    implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
+    implementation "net.kyori:adventure-api:${adventure_api_version}"
+    implementation "net.kyori:adventure-text-serializer-legacy:${adventure_text_serializer_legacy_version}"
+}
+
+def generateTemplates = tasks.register('generateTemplates', Copy) { task ->
+    task.from file('src/main/templates')
+    task.into layout.buildDirectory.dir('generated/sources/templates')
+    task.expand 'version': version
+}
+sourceSets.main.java.srcDir(generateTemplates.map { it.outputs })
+idea.project.settings.taskTriggers.afterSync generateTemplates
+eclipse.synchronizationTasks generateTemplates
+
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    archivesBaseName = 'OCVelocity'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

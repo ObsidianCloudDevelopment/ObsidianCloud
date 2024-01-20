@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.0.1'
+}
+
+group = 'de.obsidiancloud'
+version = obsidiancloud_version
+
+subprojects {
+    version = rootProject.version
+    group = rootProject.group
+}
