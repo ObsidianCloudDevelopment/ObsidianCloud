@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
+    implementation "org.yaml:snakeyaml:${snakeyaml_version}"
+    implementation "net.kyori:adventure-api:${adventure_api_version}"
+    implementation "net.kyori:adventure-text-serializer-legacy:${adventure_text_serializer_legacy_version}"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

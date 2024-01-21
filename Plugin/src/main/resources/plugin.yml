@@ -1,4 +1,0 @@
-name: Plugin
-version: '${project.version}'
-main: de.obsidiancloud.plugin.CloudAPI
-api-version: '1.20'
