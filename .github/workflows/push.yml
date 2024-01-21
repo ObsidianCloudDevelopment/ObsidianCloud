@@ -1,6 +1,6 @@
 name: Build
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -13,6 +13,8 @@ jobs:
       with:
         distribution: 'microsoft'
         java-version: '17'
+    - name: Make Gradle executable
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
   formatting:
@@ -25,5 +27,7 @@ jobs:
       with:
         distribution: 'microsoft'
         java-version: '17'
+    - name: Make Gradle executable
+      run: chmod +x ./gradlew
     - name: Check formatting
       run: ./gradlew spotlessCheck
