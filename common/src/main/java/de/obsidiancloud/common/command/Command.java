@@ -1,10 +1,9 @@
 package de.obsidiancloud.common.command;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class Command {
     private static final List<CommandProvider> providers = new ArrayList<>();
@@ -73,7 +72,8 @@ public abstract class Command {
      * @param args The arguments of the command
      * @return Returns a {@code List<String>} with the tab completions
      */
-    public @NotNull List<String> tabComplete(@NotNull CommandExecutor executor, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(
+            @NotNull CommandExecutor executor, @NotNull String[] args) {
         return new ArrayList<>();
     }
 
