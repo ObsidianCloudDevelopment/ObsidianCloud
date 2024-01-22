@@ -1,23 +1,24 @@
-package de.obsidiancloud.addon;
+package de.obsidiancloud.common.addon;
 
 import de.obsidiancloud.common.command.Command;
 import de.obsidiancloud.common.command.CommandProvider;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class Addon implements CommandProvider {
     private final List<Command> commands = new ArrayList<>();
     private AddonManifest manifest;
 
     public void onEnable() {}
+
     public void onDisable() {}
 
     @Override
     public void registerCommand(@NotNull Command command) {
         if (commands.contains(command)) {
-            throw new IllegalArgumentException("Command \"" + command.getName() + "\" is already registered");
+            throw new IllegalArgumentException(
+                    "Command \"" + command.getName() + "\" is already registered");
         } else {
             commands.add(command);
         }

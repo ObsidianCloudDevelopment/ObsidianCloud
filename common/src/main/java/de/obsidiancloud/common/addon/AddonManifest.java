@@ -1,11 +1,10 @@
-package de.obsidiancloud.addon;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+package de.obsidiancloud.common.addon;
 
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AddonManifest {
     private final Path file;
@@ -31,7 +30,15 @@ public class AddonManifest {
      * @param dependencies The dependencies of the addon
      * @param softDependencies The soft dependencies of the addon
      */
-    public AddonManifest(@NotNull Path file, @NotNull String name, @NotNull String main, @NotNull String version, @NotNull List<String> authors, @Nullable String description, @NotNull List<String> dependencies, @NotNull List<String> softDependencies) {
+    public AddonManifest(
+            @NotNull Path file,
+            @NotNull String name,
+            @NotNull String main,
+            @NotNull String version,
+            @NotNull List<String> authors,
+            @Nullable String description,
+            @NotNull List<String> dependencies,
+            @NotNull List<String> softDependencies) {
         this.file = file;
         this.name = name;
         this.main = main;

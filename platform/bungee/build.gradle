@@ -4,11 +4,11 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
-    compileOnly "net.md5:bungeecord-api:${bungeecord_api_version}"
+    compileOnly "net.md-5:bungeecord-api:${bungeecord_api_version}"
     implementation project(':common')
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
     implementation "net.kyori:adventure-api:${adventure_api_version}"
