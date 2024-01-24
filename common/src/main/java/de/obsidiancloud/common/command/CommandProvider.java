@@ -22,6 +22,13 @@ public interface CommandProvider {
     void unregisterCommand(@NotNull String command);
 
     /**
+     * Gets all registered commands
+     *
+     * @return Returns a {@code List<Command>} with all registered commands
+     */
+    @NotNull List<Command> getCommands();
+
+    /**
      * Searches for a command
      *
      * @param name The name of the command.

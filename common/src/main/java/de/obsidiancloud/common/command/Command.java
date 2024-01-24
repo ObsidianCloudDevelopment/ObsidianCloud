@@ -20,6 +20,7 @@ public abstract class Command {
      */
     public Command(@NotNull String name) {
         this.name = name;
+        this.aliases = new String[0];
     }
 
     /**
@@ -114,6 +115,15 @@ public abstract class Command {
     }
 
     /**
+     * Gets all registered command providers
+     *
+     * @return Returns a {@code List<CommandProvider>} with all registered command providers
+     */
+    public static @NotNull List<CommandProvider> getProviders() {
+        return providers;
+    }
+
+    /**
      * Registers a command provider
      *
      * @param provider The provider to register
@@ -139,6 +149,19 @@ public abstract class Command {
         } else {
             throw new IllegalArgumentException("Provider not registered!");
         }
+    }
+
+    /**
+     * Gets all registered commands
+     *
+     * @return Returns a {@code List<Command>} with all registered commands
+     */
+    public static @NotNull List<Command> getAllCommands() {
+        List<Command> commands = new ArrayList<>();
+        for (CommandProvider provider : providers) {
+            commands.addAll(provider.getCommands());
+        }
+        return commands;
     }
 
     /**

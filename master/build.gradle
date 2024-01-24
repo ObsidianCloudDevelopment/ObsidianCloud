@@ -10,8 +10,12 @@ repositories {
 dependencies {
     implementation project(':common')
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
-    implementation "net.kyori:adventure-api:${adventure_api_version}"
-    implementation "net.kyori:adventure-text-serializer-legacy:${adventure_text_serializer_legacy_version}"
+    implementation "net.kyori:adventure-api:${kyori_adventure_api_version}"
+    implementation "net.kyori:adventure-text-serializer-ansi:${kyori_adventure_text_serializer_ansi_version}"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 jar {
@@ -20,10 +24,11 @@ jar {
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archivesBaseName = 'OCMaster'
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+    manifest {
+        attributes 'Implementation-Title': 'ObsidianCloud Master',
+                   'Implementation-Version': version,
+                   'Main-Class': application.mainClass
+    }
 }
 
 application {
