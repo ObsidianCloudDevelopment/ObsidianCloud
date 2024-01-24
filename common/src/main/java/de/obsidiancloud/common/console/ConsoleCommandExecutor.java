@@ -1,11 +1,10 @@
 package de.obsidiancloud.common.console;
 
 import de.obsidiancloud.common.command.CommandExecutor;
+import java.util.logging.Logger;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.ansi.ANSIComponentSerializer;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.logging.Logger;
 
 public class ConsoleCommandExecutor implements CommandExecutor {
     private Logger logger;

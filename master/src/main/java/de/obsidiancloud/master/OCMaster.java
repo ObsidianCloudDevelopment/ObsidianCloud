@@ -6,8 +6,6 @@ import de.obsidiancloud.common.command.impl.HelpCommand;
 import de.obsidiancloud.common.console.Console;
 import de.obsidiancloud.common.console.ConsoleCommandExecutor;
 import de.obsidiancloud.master.command.ShutdownCommand;
-
-import java.io.InterruptedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
@@ -23,7 +21,8 @@ public class OCMaster extends BaseCommandProvider {
     public static void main(String[] args) {
         try {
             Files.createDirectories(Path.of("logs"));
-            LogManager.getLogManager().readConfiguration(ClassLoader.getSystemResourceAsStream("logging.properties"));
+            LogManager.getLogManager()
+                    .readConfiguration(ClassLoader.getSystemResourceAsStream("logging.properties"));
         } catch (Throwable error) {
             Logger.getGlobal().log(Level.SEVERE, "Filed to setup logging", error);
             return;

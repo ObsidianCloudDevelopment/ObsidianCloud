@@ -1,12 +1,11 @@
 package de.obsidiancloud.common.console;
 
 import de.obsidiancloud.common.command.Command;
+import java.util.List;
 import org.jline.reader.Candidate;
 import org.jline.reader.Completer;
 import org.jline.reader.LineReader;
 import org.jline.reader.ParsedLine;
-
-import java.util.List;
 
 public class CommandCompleter implements Completer {
     @Override

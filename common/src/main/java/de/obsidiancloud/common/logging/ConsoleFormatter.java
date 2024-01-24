@@ -21,6 +21,14 @@ public class ConsoleFormatter extends java.util.logging.Formatter {
                 message = record.getMessage() + "\n" + message;
             }
         }
-        return "[" + dateFormat.format(record.getInstant().toEpochMilli()) + "] [" + record.getLoggerName() + "/" + record.getLevel().getName() + "]: " + message + "\n";
+        return "["
+                + dateFormat.format(record.getInstant().toEpochMilli())
+                + "] ["
+                + record.getLoggerName()
+                + "/"
+                + record.getLevel().getName()
+                + "]: "
+                + message
+                + "\n";
     }
 }

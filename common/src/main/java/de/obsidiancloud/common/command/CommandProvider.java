@@ -1,5 +1,6 @@
 package de.obsidiancloud.common.command;
 
+import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +24,8 @@ public interface CommandProvider {
      *
      * @return Returns a {@code List<Command>} with all registered commands
      */
-    @NotNull List<Command> getCommands();
+    @NotNull
+    List<Command> getCommands();
 
     /**
      * Searches for a command

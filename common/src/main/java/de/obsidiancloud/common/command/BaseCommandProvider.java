@@ -1,9 +1,8 @@
 package de.obsidiancloud.common.command;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class BaseCommandProvider implements CommandProvider {
     private final List<Command> commands = new ArrayList<>();
@@ -11,7 +10,8 @@ public class BaseCommandProvider implements CommandProvider {
     @Override
     public void registerCommand(@NotNull Command command) {
         if (commands.contains(command)) {
-            throw new IllegalArgumentException("Command \"" + command.getName() + "\" is already registered");
+            throw new IllegalArgumentException(
+                    "Command \"" + command.getName() + "\" is already registered");
         } else {
             commands.add(command);
         }

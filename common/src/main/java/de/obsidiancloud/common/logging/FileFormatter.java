@@ -22,6 +22,14 @@ public class FileFormatter extends java.util.logging.Formatter {
             }
         }
         message = message.replace("\u001b\\[[0-9;]*m", "");
-        return "[" + dateFormat.format(record.getInstant().toEpochMilli()) + "] [" + record.getLoggerName() + "/" + record.getLevel().getName() + "]: " + message + "\n";
+        return "["
+                + dateFormat.format(record.getInstant().toEpochMilli())
+                + "] ["
+                + record.getLoggerName()
+                + "/"
+                + record.getLevel().getName()
+                + "]: "
+                + message
+                + "\n";
     }
 }

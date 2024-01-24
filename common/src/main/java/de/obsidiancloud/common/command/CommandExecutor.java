@@ -30,8 +30,7 @@ public interface CommandExecutor {
     public void sendMessage(@NotNull Component message);
 
     /**
-     * Gets the command prefix
-     * {@code ConsoleCommand}
+     * Gets the command prefix {@code ConsoleCommand}
      *
      * @return The command prefix
      */

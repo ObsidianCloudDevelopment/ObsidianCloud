@@ -3,10 +3,9 @@ package de.obsidiancloud.master.command;
 import de.obsidiancloud.common.command.Command;
 import de.obsidiancloud.common.command.CommandExecutor;
 import de.obsidiancloud.master.OCMaster;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
 public class ShutdownCommand extends Command {
     private final Map<CommandExecutor, Long> lastUsed = new HashMap<>();
@@ -27,7 +26,8 @@ public class ShutdownCommand extends Command {
             OCMaster.getInstance().shutdown();
         } else {
             lastUsed.put(executor, System.currentTimeMillis());
-            executor.sendMessage("§cAre you sure? Type the command again in the next §e10 seconds §cto confirm.");
+            executor.sendMessage(
+                    "§cAre you sure? Type the command again in the next §e10 seconds §cto confirm.");
         }
     }
 }

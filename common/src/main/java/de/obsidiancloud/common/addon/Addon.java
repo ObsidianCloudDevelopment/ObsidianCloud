@@ -35,6 +35,11 @@ public class Addon implements CommandProvider {
     }
 
     @Override
+    public @NotNull List<Command> getCommands() {
+        return commands;
+    }
+
+    @Override
     public Command getCommand(@NotNull String name) {
         for (Command command : commands) {
             if (command.getName().equalsIgnoreCase(name)) {
