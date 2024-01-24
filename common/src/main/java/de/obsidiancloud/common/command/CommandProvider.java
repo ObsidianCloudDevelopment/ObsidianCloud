@@ -3,9 +3,6 @@ package de.obsidiancloud.common.command;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public interface CommandProvider {
     /**
      * Registers a command
@@ -34,5 +31,6 @@ public interface CommandProvider {
      * @param name The name of the command.
      * @return Returns a {@code Command} if the command is registered, otherwise {@code null}.
      */
-    @Nullable Command getCommand(@NotNull String name);
+    @Nullable
+    Command getCommand(@NotNull String name);
 }

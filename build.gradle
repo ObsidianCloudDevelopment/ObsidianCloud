@@ -2,10 +2,25 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.0.1'
+    id 'com.diffplug.spotless' version '6.24.0'
 }
 
 group = 'de.obsidiancloud'
 version = obsidiancloud_version
+
+repositories {
+    mavenCentral()
+}
+
+spotless {
+    java {
+        target '**/src/**/*.java'
+        googleJavaFormat().aosp()
+        removeUnusedImports()
+        indentWithSpaces()
+        endWithNewline()
+    }
+}
 
 subprojects {
     version = rootProject.version

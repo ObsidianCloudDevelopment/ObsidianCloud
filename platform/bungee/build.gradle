@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "net.md5:bungeecord-api:${bungeecord_api_version}"
+    compileOnly "net.md-5:bungeecord-api:${bungeecord_api_version}"
     implementation project(':common')
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
     implementation "net.kyori:adventure-api:${kyori_adventure_api_version}"
