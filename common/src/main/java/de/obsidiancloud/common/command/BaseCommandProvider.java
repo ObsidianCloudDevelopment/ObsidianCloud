@@ -1,18 +1,11 @@
-package de.obsidiancloud.common.addon;
+package de.obsidiancloud.common.command;
 
-import de.obsidiancloud.common.command.Command;
-import de.obsidiancloud.common.command.CommandProvider;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
-public class Addon implements CommandProvider {
+public class BaseCommandProvider implements CommandProvider {
     private final List<Command> commands = new ArrayList<>();
-    private AddonManifest manifest;
-
-    public void onEnable() {}
-
-    public void onDisable() {}
 
     @Override
     public void registerCommand(@NotNull Command command) {
@@ -47,14 +40,5 @@ public class Addon implements CommandProvider {
             }
         }
         return null;
-    }
-
-    /**
-     * Gets the manifest of the addon
-     *
-     * @return The manifest of the addon
-     */
-    public AddonManifest getManifest() {
-        return manifest;
     }
 }

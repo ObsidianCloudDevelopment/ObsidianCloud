@@ -4,13 +4,13 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class CommandExecutor {
+public interface CommandExecutor {
     /**
      * Executes the command
      *
      * @param line The command line
      */
-    public void execute(@NotNull String line) {
+    public default void execute(@NotNull String line) {
         String[] parts = line.split(" ");
         Command command = Command.getCommand(parts[0]);
         if (command == null) {
@@ -27,14 +27,21 @@ public abstract class CommandExecutor {
      *
      * @param message The message to send
      */
-    public abstract void sendMessage(@NotNull Component message);
+    public void sendMessage(@NotNull Component message);
+
+    /**
+     * Gets the command prefix {@code ConsoleCommand}
+     *
+     * @return The command prefix
+     */
+    public String getCommandPrefix();
 
     /**
      * Sends a message to the command executor
      *
      * @param message The message to send
      */
-    public void sendMessage(@NotNull String message) {
+    public default void sendMessage(@NotNull String message) {
         sendMessage(LegacyComponentSerializer.legacySection().deserialize(message));
     }
 }

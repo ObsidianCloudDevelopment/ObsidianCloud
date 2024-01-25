@@ -11,8 +11,8 @@ dependencies {
     compileOnly "net.md-5:bungeecord-api:${bungeecord_api_version}"
     implementation project(':common')
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
-    implementation "net.kyori:adventure-api:${adventure_api_version}"
-    implementation "net.kyori:adventure-text-serializer-legacy:${adventure_text_serializer_legacy_version}"
+    implementation "net.kyori:adventure-api:${kyori_adventure_api_version}"
+    implementation "net.kyori:adventure-text-serializer-legacy:${kyori_adventure_text_serializer_legacy_version}"
 }
 
 processResources {
