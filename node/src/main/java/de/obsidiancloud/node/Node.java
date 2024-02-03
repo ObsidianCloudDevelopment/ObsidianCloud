@@ -1,6 +1,5 @@
 package de.obsidiancloud.node;
 
-import de.obsidiancloud.common.OCNode;
 import de.obsidiancloud.common.command.BaseCommandProvider;
 import de.obsidiancloud.common.command.Command;
 import de.obsidiancloud.common.command.impl.HelpCommand;
@@ -10,8 +9,6 @@ import de.obsidiancloud.common.console.ConsoleCommandExecutor;
 import de.obsidiancloud.node.command.ShutdownCommand;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -22,7 +19,6 @@ public class Node extends BaseCommandProvider {
     private final Config config = new Config(Path.of("config.json"), Config.Type.JSON);
     private final ConsoleCommandExecutor executor = new ConsoleCommandExecutor(logger);
     private Console console;
-    private final List<OCNode> nodes = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -46,7 +42,6 @@ public class Node extends BaseCommandProvider {
         Command.registerProvider(this);
         registerCommand(new HelpCommand());
         registerCommand(new ShutdownCommand());
-        nodes.add(new RemoteNode("Node-1", "localhost", 25565, new ArrayList<>()));
     }
 
     public void shutdown() {
