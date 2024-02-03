@@ -1,22 +1,28 @@
 package de.obsidiancloud.node;
 
+import de.obsidiancloud.common.OCNode;
 import de.obsidiancloud.common.command.BaseCommandProvider;
 import de.obsidiancloud.common.command.Command;
 import de.obsidiancloud.common.command.impl.HelpCommand;
+import de.obsidiancloud.common.config.Config;
 import de.obsidiancloud.common.console.Console;
 import de.obsidiancloud.common.console.ConsoleCommandExecutor;
 import de.obsidiancloud.node.command.ShutdownCommand;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-public class OCNode extends BaseCommandProvider {
-    private static OCNode instance;
-    private Logger logger;
-    private ConsoleCommandExecutor executor;
+public class Node extends BaseCommandProvider {
+    private static Node instance;
+    private final Logger logger = Logger.getLogger("main");
+    private final Config config = new Config(Path.of("config.json"), Config.Type.JSON);
+    private final ConsoleCommandExecutor executor = new ConsoleCommandExecutor(logger);
     private Console console;
+    private final List<OCNode> nodes = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -27,21 +33,20 @@ public class OCNode extends BaseCommandProvider {
             Logger.getGlobal().log(Level.SEVERE, "Filed to setup logging", error);
             return;
         }
-        instance = new OCNode();
+        instance = new Node();
     }
 
-    public OCNode() {
-        logger = Logger.getLogger("main");
-        executor = new ConsoleCommandExecutor(logger);
-        Command.registerProvider(this);
-        registerCommand(new HelpCommand());
-        registerCommand(new ShutdownCommand());
+    public Node() {
         try {
             console = new Console(logger, executor);
             console.start();
         } catch (Throwable error) {
             logger.log(Level.SEVERE, "Failed to create console", error);
         }
+        Command.registerProvider(this);
+        registerCommand(new HelpCommand());
+        registerCommand(new ShutdownCommand());
+        nodes.add(new RemoteNode("Node-1", "localhost", 25565, new ArrayList<>()));
     }
 
     public void shutdown() {
@@ -81,7 +86,7 @@ public class OCNode extends BaseCommandProvider {
      *
      * @return The console of the node.
      */
-    public static OCNode getInstance() {
+    public static Node getInstance() {
         return instance;
     }
 }

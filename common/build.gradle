@@ -8,13 +8,21 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
+    implementation "com.google.code.gson:gson:${gson_version}"
     implementation "org.yaml:snakeyaml:${snakeyaml_version}"
     implementation "net.kyori:adventure-api:${kyori_adventure_api_version}"
     implementation "net.kyori:adventure-text-serializer-legacy:${kyori_adventure_text_serializer_legacy_version}"
     implementation "net.kyori:adventure-text-serializer-ansi:${kyori_adventure_text_serializer_ansi_version}"
     implementation "org.jline:jline:${jline_version}"
+
+    testImplementation platform("org.junit:junit-bom:${junit_bom_version}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
 }
 
-tasks.withType(JavaCompile) {
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
