@@ -14,7 +14,7 @@ dependencies {
     implementation "net.kyori:adventure-text-serializer-legacy:${kyori_adventure_text_serializer_legacy_version}"
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 

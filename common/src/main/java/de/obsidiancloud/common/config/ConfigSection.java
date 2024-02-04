@@ -1,6 +1,5 @@
 package de.obsidiancloud.common.config;
 
-import com.google.gson.*;
 import java.util.List;
 import java.util.Map;
 import org.jetbrains.annotations.NotNull;

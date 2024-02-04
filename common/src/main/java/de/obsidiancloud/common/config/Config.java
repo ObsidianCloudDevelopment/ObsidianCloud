@@ -62,7 +62,7 @@ public class Config extends ConfigSection {
         return file;
     }
 
-    public static enum Type {
+    public enum Type {
         JSON(new JsonConfigSerializer()),
         YAML(new YamlConfigSerializer());
 
