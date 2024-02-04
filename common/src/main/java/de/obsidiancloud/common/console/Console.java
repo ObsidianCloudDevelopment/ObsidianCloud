@@ -2,11 +2,15 @@ package de.obsidiancloud.common.console;
 
 import de.obsidiancloud.common.command.Command;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jline.reader.EndOfFileException;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.UserInterruptException;
 import org.jline.reader.impl.DefaultParser;
 import org.jline.reader.impl.history.DefaultHistory;
 import org.jline.terminal.Terminal;
@@ -45,13 +49,14 @@ public class Console implements Runnable {
         thread.start();
     }
 
-    @SuppressWarnings("deprecation")
     public void stop() {
-        thread.stop();
         try {
+            thread.interrupt();
             terminal.close();
-        } catch (IOException e) {
-            logger.throwing(Console.class.getName(), "stop", e);
+        } catch (IOException exception) {
+            if (!(exception instanceof InterruptedIOException)) {
+                logger.log(Level.SEVERE, "Failed to close terminal", exception);
+            }
         }
     }
 
@@ -76,8 +81,11 @@ public class Console implements Runnable {
                     }
                 }
             }
-        } catch (Throwable error) {
-            logger.throwing(Console.class.getName(), "run", error);
+        } catch (UserInterruptException ignored) {
+            executor.execute("shutdown");
+            run();
+        } catch (EndOfFileException exception) {
+            logger.log(Level.SEVERE, "Failed to read console input", exception);
         }
     }
 }

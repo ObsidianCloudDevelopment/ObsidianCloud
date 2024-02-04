@@ -26,7 +26,7 @@ public class Node extends BaseCommandProvider {
             LogManager.getLogManager()
                     .readConfiguration(ClassLoader.getSystemResourceAsStream("logging.properties"));
         } catch (Throwable error) {
-            Logger.getGlobal().log(Level.SEVERE, "Filed to setup logging", error);
+            Logger.getGlobal().log(Level.SEVERE, "Failed to setup logging", error);
             return;
         }
         instance = new Node();
@@ -45,7 +45,9 @@ public class Node extends BaseCommandProvider {
     }
 
     public void shutdown() {
-        console.stop();
+        if (console != null) {
+            console.stop();
+        }
         System.exit(0);
     }
 
