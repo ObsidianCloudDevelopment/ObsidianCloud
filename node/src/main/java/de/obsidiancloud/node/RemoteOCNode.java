@@ -7,10 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class RemoteOCNode extends OCNode {
-    private final List<OCServer> servers;
+    private final List<RemoteOCServer> servers;
 
     public RemoteOCNode(
-            @NotNull String name, @NotNull String host, int port, @NotNull List<OCServer> servers) {
+            @NotNull String name,
+            @NotNull String host,
+            int port,
+            @NotNull List<RemoteOCServer> servers) {
         super(name, host, port);
         this.servers = servers;
     }
@@ -22,7 +25,8 @@ public class RemoteOCNode extends OCNode {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public @Nullable List<OCServer> getServers() {
-        return isConnected() ? servers : null;
+        return isConnected() ? (List<OCServer>) (List<?>) servers : null;
     }
 }
