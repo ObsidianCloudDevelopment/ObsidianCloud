@@ -9,18 +9,10 @@ import org.jetbrains.annotations.Nullable;
 public abstract class OCPlayer implements CommandExecutor {
     private final UUID uuid;
     private final String name;
-    protected String proxy;
-    protected String server;
 
-    public OCPlayer(
-            @NotNull UUID uuid,
-            @NotNull String name,
-            @Nullable String proxy,
-            @Nullable String server) {
+    public OCPlayer(@NotNull UUID uuid, @NotNull String name) {
         this.uuid = uuid;
         this.name = name;
-        this.proxy = proxy;
-        this.server = server;
     }
 
     /**
@@ -67,18 +59,5 @@ public abstract class OCPlayer implements CommandExecutor {
      */
     public @NotNull String getName() {
         return name;
-    }
-
-    /**
-     * Updates the player.
-     *
-     * @param player The player to update
-     * @param proxy The new proxy of the player
-     * @param server The new server of the player
-     */
-    public static void updatePlayer(
-            @NotNull OCPlayer player, @Nullable String proxy, @Nullable String server) {
-        player.proxy = proxy;
-        player.server = server;
     }
 }

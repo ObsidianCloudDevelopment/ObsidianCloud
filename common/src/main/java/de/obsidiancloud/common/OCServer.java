@@ -140,6 +140,7 @@ public abstract class OCServer {
 
     public static enum Type {
         BUKKIT(false),
+        FABRIC(false),
         BUNGEECORD(true),
         VELOCITY(true);
 
