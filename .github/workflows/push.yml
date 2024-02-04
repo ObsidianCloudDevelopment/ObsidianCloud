@@ -3,6 +3,20 @@ name: Build
 on: [push]
 
 jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+      - name: Check formatting
+        run: ./gradlew spotlessCheck
   build:
     runs-on: ubuntu-latest
     steps:
@@ -17,17 +31,17 @@ jobs:
       run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
-  formatting:
+  testsing:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout sources
-      uses: actions/checkout@v4
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'microsoft'
-        java-version: '17'
-    - name: Make Gradle executable
-      run: chmod +x ./gradlew
-    - name: Check formatting
-      run: ./gradlew spotlessCheck
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+      - name: Run tests
+        run: ./gradlew test
