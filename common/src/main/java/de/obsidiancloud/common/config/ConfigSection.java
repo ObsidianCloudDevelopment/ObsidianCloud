@@ -268,45 +268,4 @@ public class ConfigSection {
     public @NotNull Map<String, Object> getData() {
         return data;
     }
-
-    private JsonElement parseValue(Object value) {
-        if (value instanceof String str) {
-            return new JsonPrimitive(str);
-        } else if (value instanceof Number num) {
-            return new JsonPrimitive(num);
-        } else if (value instanceof Boolean bool) {
-            return new JsonPrimitive(bool);
-        } else if (value instanceof Character cha) {
-            return new JsonPrimitive(cha);
-        } else if (value instanceof List<?> list) {
-            JsonArray array = new JsonArray();
-            for (Object obj : list) {
-                if (obj instanceof String str) {
-                    array.add(str);
-                } else if (obj instanceof Number num) {
-                    array.add(num);
-                } else if (obj instanceof Boolean bool) {
-                    array.add(bool);
-                } else {
-                    array.add(new JsonStreamParser(obj.toString()).next());
-                }
-            }
-            return array;
-        } else if (value instanceof Map<?, ?> map) {
-            JsonObject object = new JsonObject();
-            map.forEach((k, v) -> object.add(k.toString(), parseValue(v)));
-            return object;
-        } else {
-            return new JsonStreamParser(value.toString()).next();
-        }
-    }
-
-    /**
-     * Converts the section to a JSON object.
-     *
-     * @return Returns the JSON object of the section.
-     */
-    public JsonObject toJSON() {
-        return parseValue(data).getAsJsonObject();
-    }
 }

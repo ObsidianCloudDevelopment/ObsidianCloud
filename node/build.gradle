@@ -25,12 +25,12 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archivesBaseName = 'OCNode'
     manifest {
-        attributes 'Implementation-Title': 'ObsidianCloud Master',
+        attributes 'Implementation-Title': 'ObsidianCloud Node',
                    'Implementation-Version': version,
                    'Main-Class': application.mainClass
     }
 }
 
 application {
-    mainClass = 'de.obsidiancloud.node.OCNode'
+    mainClass = 'de.obsidiancloud.node.Node'
 }
