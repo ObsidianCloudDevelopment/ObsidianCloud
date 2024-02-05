@@ -9,10 +9,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class RemoteOCPlayer extends OCPlayer {
+public class OCPlayerImpl extends OCPlayer {
     private final RemoteOCNode node;
 
-    public RemoteOCPlayer(@NotNull UUID uuid, @NotNull String name, @NotNull RemoteOCNode node) {
+    public OCPlayerImpl(@NotNull UUID uuid, @NotNull String name, @NotNull RemoteOCNode node) {
         super(uuid, name);
         this.node = node;
     }
@@ -45,17 +45,17 @@ public class RemoteOCPlayer extends OCPlayer {
 
     @Override
     public void connect(OCServer server) {
-        // TODO: Send packet to node to connect player to server
+        // TODO: Send packet to getProxy().getNode() to connect player to server
     }
 
     @Override
     public void disconnect(Component message) {
-        // TODO: Send packet to node to disconnect player
+        // TODO: Send packet to getProxy().getNode() to disconnect player
     }
 
     @Override
     public void sendMessage(@NotNull Component message) {
-        // TODO: Send packet to node to send message to player
+        // TODO: Send packet to getProxy().getNode() to send message to player
     }
 
     @Override

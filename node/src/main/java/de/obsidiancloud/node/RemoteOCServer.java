@@ -25,12 +25,12 @@ public class RemoteOCServer extends OCServer {
 
     @Override
     public void start() {
-        // TODO: Send start server packet
+        // TODO: Send start server packet to node
     }
 
     @Override
     public void stop() {
-        // TODO: Send stop server packet
+        // TODO: Send stop server packet to node
     }
 
     @Override
