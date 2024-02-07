@@ -28,8 +28,8 @@ public class Config extends ConfigSection {
     /** Saves the config to the file. */
     public void save() {
         try {
-            if (Files.notExists(file.getParent())) {
-                Files.createDirectories(file.getParent());
+            if (Files.notExists(file.toAbsolutePath().getParent())) {
+                Files.createDirectories(file.toAbsolutePath().getParent());
             }
             Files.writeString(file, type.serializer.serialize(data));
         } catch (Exception e) {
@@ -40,8 +40,8 @@ public class Config extends ConfigSection {
     /** Reloads the config from the file. */
     public void reload() {
         try {
-            if (Files.notExists(file.getParent())) {
-                Files.createDirectories(file.getParent());
+            if (Files.notExists(file.toAbsolutePath().getParent())) {
+                Files.createDirectories(file.toAbsolutePath().getParent());
             }
             if (Files.exists(file)) {
                 data = type.serializer.deserialize(Files.readString(file));
@@ -62,7 +62,7 @@ public class Config extends ConfigSection {
         return file;
     }
 
-    public static enum Type {
+    public enum Type {
         JSON(new JsonConfigSerializer()),
         YAML(new YamlConfigSerializer());
 

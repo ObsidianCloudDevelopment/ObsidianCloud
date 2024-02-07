@@ -14,7 +14,7 @@ dependencies {
     implementation "net.kyori:adventure-text-serializer-legacy:${kyori_adventure_text_serializer_legacy_version}"
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
@@ -25,12 +25,12 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archivesBaseName = 'OCNode'
     manifest {
-        attributes 'Implementation-Title': 'ObsidianCloud Master',
+        attributes 'Implementation-Title': 'ObsidianCloud Node',
                    'Implementation-Version': version,
                    'Main-Class': application.mainClass
     }
 }
 
 application {
-    mainClass = 'de.obsidiancloud.node.OCNode'
+    mainClass = 'de.obsidiancloud.node.Node'
 }

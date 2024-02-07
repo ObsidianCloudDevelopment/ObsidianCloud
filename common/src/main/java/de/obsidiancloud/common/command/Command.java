@@ -34,7 +34,7 @@ public abstract class Command {
     }
 
     /**
-     * Adds an alias to the command
+     * Sets the usage of the command
      *
      * @param usage The usage of the command
      * @return Returns the command
