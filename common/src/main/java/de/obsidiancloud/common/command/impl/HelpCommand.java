@@ -16,7 +16,8 @@ public class HelpCommand extends Command {
     public void execute(@NotNull CommandExecutor executor, @NotNull String[] args) {
         executor.sendMessage("Help:");
         for (Command command : Command.getAllCommands()) {
-            executor.sendMessage("  " + command.getName() + " - " + command.getDescription());
+            String aliases = String.join(", ", command.getAliases());
+            executor.sendMessage("  " + command.getName() + " [" + aliases + "] " + " - " + command.getDescription());
         }
     }
 }
