@@ -2,12 +2,11 @@ package de.obsidiancloud.node;
 
 import de.obsidiancloud.common.OCPlayer;
 import de.obsidiancloud.common.OCServer;
+import java.util.List;
+import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.UUID;
 
 public class OCPlayerImpl extends OCPlayer {
     private final RemoteOCNode node;
