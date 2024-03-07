@@ -4,9 +4,10 @@ pluginManagement {
         maven { url = 'https://repo.papermc.io/repository/maven-public/' }
     }
 }
+
 rootProject.name = 'ObsidianCloud'
+
 include 'common'
-include 'master'
 include 'node'
 include 'platform:bukkit'
 include 'platform:bungee'
