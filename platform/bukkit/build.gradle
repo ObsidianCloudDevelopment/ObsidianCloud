@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'io.papermc.paperweight.userdev' version '1.5.3'
+    id 'io.papermc.paperweight.userdev' version '1.5.10'
 }
 
 repositories {
@@ -8,11 +8,15 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle(bukkit_version)
     implementation project(':common')
+    paperweight.paperDevBundle paper_version
     implementation "org.jetbrains:annotations:${jetbrains_annotations_version}"
     implementation "net.kyori:adventure-api:${kyori_adventure_api_version}"
     implementation "net.kyori:adventure-text-serializer-legacy:${kyori_adventure_text_serializer_legacy_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
 
 processResources {
@@ -22,15 +26,9 @@ processResources {
 }
 
 jar {
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archivesBaseName = 'OCBukkit'
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
 }
 
 build.finalizedBy reobfJar
