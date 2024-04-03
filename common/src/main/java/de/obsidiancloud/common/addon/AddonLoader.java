@@ -237,27 +237,27 @@ public class AddonLoader {
     @SuppressWarnings("unchecked")
     public static void loadClasses(@NotNull AddonManifest manifest)
             throws IOException,
-                    InvocationTargetException,
-                    InstantiationException,
-                    IllegalAccessException,
+                    NoSuchFieldException,
                     ClassNotFoundException,
-                    NoSuchFieldException {
+                    IllegalAccessException,
+                    InvocationTargetException,
+                    InstantiationException {
         try (JarFile jarFile = new JarFile(manifest.getFile().toFile())) {
             URL[] urls = {new URL("jar:file:" + manifest.getFile() + "!/")};
-            try (URLClassLoader classLoader = URLClassLoader.newInstance(urls)) {
-                Enumeration<JarEntry> entries = jarFile.entries();
-                while (entries.hasMoreElements()) {
-                    JarEntry entry = entries.nextElement();
-                    if (entry.isDirectory() || !entry.getName().endsWith(".class")) {
-                        continue;
-                    }
-                    String className = entry.getName().substring(0, entry.getName().length() - 6);
-                    className = className.replace("/", ".");
-                    try {
-                        Class.forName(className);
-                    } catch (ClassNotFoundException exception) {
-                        classLoader.loadClass(className);
-                    }
+            AddonClassLoader classLoader =
+                    new AddonClassLoader(urls, AddonLoader.class.getClassLoader());
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                if (entry.isDirectory() || !entry.getName().endsWith(".class")) {
+                    continue;
+                }
+                String className = entry.getName().substring(0, entry.getName().length() - 6);
+                className = className.replace("/", ".");
+                try {
+                    Class.forName(className);
+                } catch (ClassNotFoundException ignored) {
+                    classLoader.loadClass(className);
                 }
                 jarFile.close();
                 Class<?> mainClass = Class.forName(manifest.getMain());
@@ -266,7 +266,7 @@ public class AddonLoader {
                     Constructor<? extends Addon> constructor;
                     try {
                         constructor = addonClass.getDeclaredConstructor();
-                    } catch (NoSuchMethodException exception) {
+                    } catch (NoSuchMethodException ignored) {
                         throw new NoSuchMethodError(
                                 "Main class of \""
                                         + manifest.getName()
@@ -287,9 +287,6 @@ public class AddonLoader {
                             "Main class of \"" + manifest.getName() + "\" does not extend Addon");
                 }
             }
-        } catch (IOException exception) {
-            throw new IOException(
-                    "Could not load classes of \"" + manifest.getName() + "\"", exception);
         }
     }
 
@@ -311,6 +308,37 @@ public class AddonLoader {
         } catch (Exception exception) {
             throw new Exception(
                     "Could not unload classes of \"" + manifest.getName() + "\"", exception);
+        }
+    }
+
+    public static class AddonClassLoader extends URLClassLoader {
+        public AddonClassLoader(URL[] urls, ClassLoader parent) {
+            super(urls, parent);
+        }
+
+        @Override
+        protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+            return internalLoadClass(name, resolve, true);
+        }
+
+        private Class<?> internalLoadClass(String name, boolean resolve, boolean checkOther)
+                throws ClassNotFoundException {
+            try {
+                return super.loadClass(name, resolve);
+            } catch (ClassNotFoundException exception) {
+                if (checkOther) {
+                    for (AddonManifest manifest : manifests) {
+                        try {
+                            if (manifest.getClassLoader() != this) {
+                                return manifest.getClassLoader()
+                                        .internalLoadClass(name, resolve, false);
+                            }
+                        } catch (Throwable ignored) {
+                        }
+                    }
+                }
+                throw exception;
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package de.obsidiancloud.common.addon;
 
-import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +14,7 @@ public class AddonManifest {
     private final String description;
     private final List<String> dependencies;
     private final List<String> softDependencies;
-    private URLClassLoader classLoader;
+    private AddonLoader.AddonClassLoader classLoader;
     private Addon instance;
 
     /**
@@ -126,7 +125,7 @@ public class AddonManifest {
      *
      * @return The class loader of the addon
      */
-    public URLClassLoader getClassLoader() {
+    public AddonLoader.AddonClassLoader getClassLoader() {
         return classLoader;
     }
 
