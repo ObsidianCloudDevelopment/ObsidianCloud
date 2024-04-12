@@ -22,6 +22,7 @@ public class Console implements Runnable {
     private final Terminal terminal;
     private final LineReader reader;
     private final Thread thread;
+    private boolean running = true;
 
     public Console(Logger logger, ConsoleCommandExecutor executor) throws IOException {
         this.logger = logger;
@@ -51,6 +52,7 @@ public class Console implements Runnable {
 
     public void stop() {
         try {
+            running = false;
             thread.interrupt();
             terminal.close();
         } catch (IOException exception) {
@@ -64,7 +66,7 @@ public class Console implements Runnable {
     public void run() {
         try {
             String line;
-            while ((line = reader.readLine("> ")) != null) {
+            while (running && (line = reader.readLine("> ")) != null) {
                 String[] parts = line.split(" ");
                 if (parts.length > 0) {
                     Command command = null;
@@ -81,11 +83,11 @@ public class Console implements Runnable {
                     }
                 }
             }
-        } catch (UserInterruptException ignored) {
-            executor.execute("shutdown");
-            run();
-        } catch (EndOfFileException exception) {
-            logger.log(Level.SEVERE, "Failed to read console input", exception);
+        } catch (UserInterruptException | EndOfFileException ignored) {
+            if (running) {
+                executor.execute("shutdown");
+                run();
+            }
         }
     }
 }

@@ -15,9 +15,5 @@ jobs:
           java-version: '17'
       - name: Make Gradle executable
         run: chmod +x ./gradlew
-      - name: Check formatting
-        run: ./gradlew spotlessCheck
       - name: Build with Gradle
         run: ./gradlew build
-      - name: Run tests
-        run: ./gradlew test

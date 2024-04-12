@@ -1,4 +1,4 @@
-package de.obsidiancloud.node;
+package de.obsidiancloud.node.remote;
 
 import de.obsidiancloud.common.OCNode;
 import de.obsidiancloud.common.OCServer;

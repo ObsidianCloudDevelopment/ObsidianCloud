@@ -2,6 +2,7 @@ package de.obsidiancloud.node;
 
 import de.obsidiancloud.common.OCPlayer;
 import de.obsidiancloud.common.OCServer;
+import de.obsidiancloud.node.remote.RemoteOCNode;
 import java.util.List;
 import java.util.UUID;
 import net.kyori.adventure.text.Component;

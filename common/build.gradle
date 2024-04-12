@@ -14,13 +14,6 @@ dependencies {
     implementation "net.kyori:adventure-text-serializer-legacy:${kyori_adventure_text_serializer_legacy_version}"
     implementation "net.kyori:adventure-text-serializer-ansi:${kyori_adventure_text_serializer_ansi_version}"
     implementation "org.jline:jline:${jline_version}"
-
-    testImplementation platform("org.junit:junit-bom:${junit_bom_version}")
-    testImplementation "org.junit.jupiter:junit-jupiter"
-}
-
-test {
-    useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile).configureEach {

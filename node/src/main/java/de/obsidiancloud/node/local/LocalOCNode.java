@@ -1,10 +1,9 @@
-package de.obsidiancloud.node;
+package de.obsidiancloud.node.local;
 
 import de.obsidiancloud.common.OCNode;
 import de.obsidiancloud.common.OCServer;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class LocalOCNode extends OCNode {
     private final List<LocalOCServer> servers;
@@ -25,7 +24,7 @@ public class LocalOCNode extends OCNode {
 
     @Override
     @SuppressWarnings("unchecked")
-    public @Nullable List<OCServer> getServers() {
+    public @NotNull List<OCServer> getServers() {
         return (List<OCServer>) (List<?>) servers;
     }
 }
